@@ -10,6 +10,8 @@ func (m *MapIoc) Init() error {
 	for _, obj := range m.Map {
 		if err := obj.Init(); err != nil {
 			return err
+		} else {
+			fmt.Printf("%v Init complete!\n", obj.Name())
 		}
 	}
 	return nil

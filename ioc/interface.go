@@ -8,4 +8,5 @@ type Ioc interface {
 
 type Object interface {
 	Init() error
+	Name() string
 }

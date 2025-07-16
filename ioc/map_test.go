@@ -15,6 +15,10 @@ func (t *test_obj) Init() error {
 	return nil
 }
 
+func (t *test_obj) Name() string {
+	return "test_obj"
+}
+
 func TestRegister(t *testing.T) {
 	test_ioc.Register("test", &test_obj{})
 	obj, err := test_ioc.Get("test")
