@@ -4,7 +4,7 @@ import (
 	"strings"
 
 	"github.com/2981047480/tinybox/exception"
-	"github.com/shirou/gopsutil/v3/process"
+	"github.com/shirou/gopsutil/v4/process"
 )
 
 func NewProcess(pid int32) (*process.Process, error) {
