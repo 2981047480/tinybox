@@ -8,10 +8,17 @@ import (
 
 func TestGet(t *testing.T) {
 	r := request.NewHttpRequest()
-	r.InitUrl("https://linkcloud-admin.qiniu.io", "/api/proxy/jarvis/v2/nodes")
-	res, err := r.Get()
+	u, err := r.InitUrl("https://myip.ipip.net", "")
 	if err != nil {
 		t.Fatal(err)
 	}
+	// u.RawQuery = "page=1&size=999"
+	full_url := u.String()
+
+	res, err := r.Get(full_url, "", "")
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	t.Log(res)
 }
