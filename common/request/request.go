@@ -17,9 +17,10 @@ func NewHttpRequest() HttpRequest {
 }
 
 type HttpRequest struct {
-	url     string
-	baseurl string
-	pathurl string
+	url      string
+	baseurl  string
+	pathurl  string
+	Response string
 }
 
 func (r *HttpRequest) Get(url string, auth string, cookies string) (string, error) {
@@ -45,7 +46,8 @@ func (r *HttpRequest) Get(url string, auth string, cookies string) (string, erro
 		return "", err
 	}
 
-	return string(body), nil
+	r.Response = string(body)
+	return r.Response, nil
 }
 
 func (r *HttpRequest) initRequest(url string, auth string, cookies string) (*http.Request, error) {
@@ -55,7 +57,8 @@ func (r *HttpRequest) initRequest(url string, auth string, cookies string) (*htt
 	}
 
 	req.Header.Set("Accept", "*/*")
-	req.Header.Set("Accept-Encoding", "gzip, deflate, br")
+	// 改为空 否则请求会乱码
+	req.Header.Set("Accept-Encoding", "")
 	req.Header.Set("Accept-Language", "zh-CN,zh-Hans;q=0.9")
 	req.Header.Set("Authorization", auth)
 	req.Header.Set("Content-Type", "application/json; charset=UTF-8")
