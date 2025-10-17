@@ -58,7 +58,7 @@ func (r *HttpRequest) initRequest(url string, auth string, cookies string) (*htt
 
 	req.Header.Set("Accept", "*/*")
 	// 改为空 否则请求会乱码
-	req.Header.Set("Accept-Encoding", "")
+	req.Header.Set("Accept-Encoding", "text/plain")
 	req.Header.Set("Accept-Language", "zh-CN,zh-Hans;q=0.9")
 	req.Header.Set("Authorization", auth)
 	req.Header.Set("Content-Type", "application/json; charset=UTF-8")
