@@ -4,23 +4,36 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-type Logger struct {
+type logger struct {
 }
 
-func NewLogger() Logger {
-	return Logger{}
+func NewLogger() logger {
+	return logger{}
 }
 
-var L Logger = NewLogger()
+var l logger = NewLogger()
 
-func (l *Logger) Log(message string) {
+func (l *logger) Log(message string) {
 	log.Printf("%v", message)
 }
 
-func (l *Logger) Warning(message string) {
+func (l *logger) Warning(message string) {
 	log.Warn().Msg(message)
 }
 
-func (l *Logger) Error(message string) {
+func (l *logger) Error(message string) {
 	log.Error().Msg(message)
+}
+
+// 包级函数，供外部直接调用
+func Log(message string) {
+	l.Log(message)
+}
+
+func Warning(message string) {
+	l.Warning(message)
+}
+
+func Error(message string) {
+	l.Error(message)
 }
