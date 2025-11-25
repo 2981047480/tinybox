@@ -7,6 +7,12 @@ import (
 type Logger struct {
 }
 
+func NewLogger() Logger {
+	return Logger{}
+}
+
+var L Logger = NewLogger()
+
 func Log(message string) {
 	log.Printf("%v", message)
 }
