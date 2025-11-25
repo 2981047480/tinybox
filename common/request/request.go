@@ -26,7 +26,8 @@ type HttpRequest struct {
 func (r *HttpRequest) Get(url string, auth string, cookies string) (string, error) {
 	client := &http.Client{}
 
-	req, err := r.initRequest(url, auth, cookies)
+	method := "GET"
+	req, err := r.initRequest(method, url, auth, cookies)
 	if err != nil {
 		return "", err
 	}
@@ -50,8 +51,8 @@ func (r *HttpRequest) Get(url string, auth string, cookies string) (string, erro
 	return r.Response, nil
 }
 
-func (r *HttpRequest) initRequest(url string, auth string, cookies string) (*http.Request, error) {
-	req, err := http.NewRequest("GET", url, nil)
+func (r *HttpRequest) initRequest(method string, url string, auth string, cookies string) (*http.Request, error) {
+	req, err := http.NewRequest(method, url, nil)
 	if err != nil {
 		return &http.Request{}, err
 	}
@@ -84,6 +85,30 @@ func (r *HttpRequest) GetUrl() string {
 	return r.url
 }
 
-func (r *HttpRequest) Post() error {
-	return nil
+func (r *HttpRequest) Post(url string, auth string, cookies string) (string, error) {
+	client := &http.Client{}
+
+	method := "POST"
+	req, err := r.initRequest(method, url, auth, cookies)
+	if err != nil {
+		return "", err
+	}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return "", err
+	}
+	if resp.StatusCode > 300 {
+		return "", fmt.Errorf("status code: %v", resp.StatusCode)
+	}
+	defer resp.Body.Close()
+
+	fmt.Println(resp.Body)
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", err
+	}
+
+	r.Response = string(body)
+	return r.Response, nil
 }

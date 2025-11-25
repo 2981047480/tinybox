@@ -8,7 +8,7 @@ import (
 
 func TestGet(t *testing.T) {
 	r := request.NewHttpRequest()
-	u, err := r.InitUrl("https://myip.ipip.net", "")
+	u, err := r.InitUrl("https://www.baidu.com", "")
 	if err != nil {
 		t.Fatal(err)
 	}

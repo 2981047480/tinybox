@@ -14,6 +14,12 @@ type LocalCommand struct {
 	Command string
 }
 
+func NewLocalCommand(command string) LocalCommand {
+	return LocalCommand{
+		Command: command,
+	}
+}
+
 func (c *LocalCommand) Exec() (string, error) {
 	cmd := exec.Command("bash", "-c", c.Command)
 	var out bytes.Buffer
